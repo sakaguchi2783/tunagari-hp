@@ -95,6 +95,62 @@
       mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,.9), rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 85%);
     }
 
+    /* ===== BLOG: delete button / video button ===== */
+.post-actions{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:3;
+  display:flex;
+  gap:8px;
+}
+
+.post-del{
+  width:34px;
+  height:34px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(6,9,12,.55);
+  color:rgba(234,255,246,.95);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  backdrop-filter: blur(12px);
+  padding:0;
+  transition: transform .15s ease, border-color .2s ease, filter .2s ease;
+}
+
+.post-del:hover{
+  border-color: rgba(255,77,109,.35);
+  filter: brightness(1.05);
+}
+
+.post-del:active{
+  transform: scale(.98);
+}
+
+.post-del:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.post-del svg{
+  width:18px;
+  height:18px;
+}
+
+.post-video{
+  margin-top:12px;
+  display:inline-flex;
+}
+
+@media (max-width:980px){
+  .post-actions{ top:8px; right:8px; }
+  .post-del{ width:32px; height:32px; border-radius:12px; }
+}
+
+
     /* ====== Scroll progress ====== */
     .progress{
       position:fixed; top:0; left:0; right:0; height:3px; z-index:120;
@@ -986,6 +1042,24 @@
           <p>10年保証、2年間清掃サービスなど手厚いアフターサービス</p>
         </div>
       </article>
+
+       <article class="card tilt reveal" data-tilt>
+        <div class="thumb" style="--thumb:url('assets/services/timecapsule.jpg');" role="img" aria-label="タイムカプセル外壁工事の写真"></div>
+        <div class="body">
+          <h4>お墓掃除サービス</h4>
+          <p>ご先祖様のお墓の様子を見に行けない方のためのお掃除サービスです。現地写真付きの報告書も提出させて頂きます。</p>
+        </div>
+      </article>
+
+       <article class="card tilt reveal" data-tilt>
+        <div class="thumb" style="--thumb:url('assets/services/timecapsule.jpg');" role="img" aria-label="タイムカプセル外壁工事の写真"></div>
+        <div class="body">
+          <h4>ワンちゃんお散歩代行サービス</h4>
+          <p>代行で大事な愛犬の散歩代行を行います。少ししつけにお困りの方にもおトクなサービス</p>
+        </div>
+      </article>
+
+
     </div>
   </section>
 
@@ -1153,67 +1227,79 @@
 </section>
 
 
-  <!-- ====== BLOG ====== -->
-  <section id="blog" class="wrap">
-    <div class="section-head">
-      <div>
-        <h3>みんなのブログ</h3>
-        <p>画像・タイトル・本文を投稿して、施工の思い出やお知らせをシェアしましょう。</p>
-      </div>
-      <span class="tag">BLOG</span>
+ <!-- ====== BLOG ====== -->
+<section id="blog" class="wrap">
+  <div class="section-head">
+    <div>
+      <h3>みんなのブログ</h3>
+      <p>画像・タイトル・本文を投稿して、施工の思い出やお知らせをシェアしましょう。</p>
     </div>
+    <span class="tag">BLOG</span>
+  </div>
 
-    <div class="blog">
-      <form id="postForm" class="panel reveal" novalidate>
-        <h4 style="margin:0 0 10px;font-weight:900">新規投稿</h4>
+  <div class="blog">
+    <form id="postForm" class="panel reveal" novalidate>
+      <h4 style="margin:0 0 10px;font-weight:900">新規投稿</h4>
 
-        <!-- Dropzone -->
-        <label>画像（任意）</label>
-        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="画像をアップロード">
-          <div class="dz-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 16a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.6 3.6 0 1 1 18 16H7z" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M12 11v7" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M9.5 13.5 12 11l2.5 2.5" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="dz-text">
-            <b>画像をドラッグ&ドロップ</b>
-            <small>またはタップして選択</small>
-          </div>
-          <div class="dz-preview" id="dzPreview"><span class="hint">No Image</span></div>
+      <!-- Dropzone -->
+      <label>画像（任意）</label>
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="画像をアップロード">
+        <div class="dz-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 16a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.6 3.6 0 1 1 18 16H7z" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 11v7" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9.5 13.5 12 11l2.5 2.5" stroke="rgba(234,255,246,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <input id="postImage" name="image" class="hidden-input" type="file" accept="image/*">
-
-        <div style="margin-top:14px">
-          <label for="postTitle">タイトル</label>
-          <input id="postTitle" name="title" type="text" placeholder="タイトルを入力" required>
+        <div class="dz-text">
+          <b>画像をドラッグ&ドロップ</b>
+          <small>またはタップして選択</small>
         </div>
+        <div class="dz-preview" id="dzPreview"><span class="hint">No Image</span></div>
+      </div>
+      <input id="postImage" name="image" class="hidden-input" type="file" accept="image/*">
 
-        <div style="margin-top:14px">
-          <label for="postText">本文</label>
-          <textarea id="postText" name="text" placeholder="本文を入力" required></textarea>
-        </div>
+      <div style="margin-top:14px">
+        <label for="postTitle">タイトル</label>
+        <input id="postTitle" name="title" type="text" placeholder="タイトルを入力" required>
+      </div>
 
-        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn primary" type="submit">投稿する</button>
-          <button id="btnReload" class="btn" type="button">最新を読み込む</button>
-        </div>
-
-        <p class="hint">
-          ※ 投稿はSupabaseの <b>blog_posts</b> に保存され、画像はStorage（バケット <b>post-images</b>）へアップロードされます。<br>
-          ※ Storage 側の書込み権限が無い場合はアップロードに失敗します（Storage policies をご確認ください）。
+      <!-- ★追加：YouTube URL（任意） -->
+      <div style="margin-top:14px">
+        <label for="postVideo">YouTube URL（任意）</label>
+        <input id="postVideo" name="video" type="url" inputmode="url"
+               placeholder="https://www.youtube.com/watch?v=XXXX または https://youtu.be/XXXX">
+        <p class="hint" style="margin:8px 0 0">
+          ※YouTube URLを入れて投稿すると、投稿カードに赤い「動画を見る」ボタンが表示されます。<br>
+          ※画像を選ばずにURLだけ入れると、YouTubeサムネが自動表示されます（おすすめ）。
         </p>
-      </form>
+      </div>
 
-      <div class="reveal">
-        <div class="post-list" id="postList" aria-live="polite" aria-busy="false"></div>
-        <div class="more">
-          <button id="btnMore" class="btn ghost" type="button" hidden>もっと見る</button>
-        </div>
+      <div style="margin-top:14px">
+        <label for="postText">本文</label>
+        <textarea id="postText" name="text" placeholder="本文を入力" required></textarea>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" type="submit">投稿する</button>
+        <button id="btnReload" class="btn" type="button">最新を読み込む</button>
+      </div>
+
+      <p class="hint">
+        ※ 投稿はSupabaseの <b>blog_posts</b> に保存され、画像はStorage（バケット <b>post-images</b>）へアップロードされます。<br>
+        ※ Storage 側の書込み権限が無い場合はアップロードに失敗します（Storage policies をご確認ください）。
+      </p>
+    </form>
+
+    <div class="reveal">
+      <div class="post-list" id="postList" aria-live="polite" aria-busy="false"></div>
+      <div class="more">
+        <button id="btnMore" class="btn ghost" type="button" hidden>もっと見る</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- ====== CONTACT ====== -->
   <section id="contact" class="wrap">
@@ -1596,232 +1682,434 @@
     }
     initHeroFx();
 
-    // ==========================
-    //  Blog: Supabase CRUD + UI
-    // ==========================
-    const PAGE_SIZE = 12;
-    let loadedCount = 0;
+   // ==========================
+//  Blog: Supabase CRUD + UI
+//  + Delete button
+//  + YouTube URL field
+// ==========================
+const PAGE_SIZE = 12;
+let loadedCount = 0;
 
-    const postForm = document.getElementById('postForm');
-    const postList = document.getElementById('postList');
-    const btnMore = document.getElementById('btnMore');
-    const btnReload = document.getElementById('btnReload');
+const postForm = document.getElementById('postForm');
+const postList = document.getElementById('postList');
+const btnMore = document.getElementById('btnMore');
+const btnReload = document.getElementById('btnReload');
 
-    const dropzone = document.getElementById('dropzone');
-    const postImage = document.getElementById('postImage');
-    const dzPreview = document.getElementById('dzPreview');
+const dropzone = document.getElementById('dropzone');
+const postImage = document.getElementById('postImage');
+const dzPreview = document.getElementById('dzPreview');
+const postVideo = document.getElementById('postVideo');
 
-    function escapeHTML(str){
-      return (str || '').replace(/[&<>"']/g, s=>({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      })[s]);
-    }
-    const newID = () => (crypto && crypto.randomUUID) ? crypto.randomUUID() : ('id-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+function escapeHTML(str){
+  return (str || '').replace(/[&<>"']/g, s=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[s]);
+}
 
-    function renderPreview(file){
-      if(!file){
-        dzPreview.innerHTML = '<span class="hint">No Image</span>';
-        return;
-      }
-      const url = URL.createObjectURL(file);
-      dzPreview.innerHTML = `<img src="${url}" alt="preview">`;
-    }
+const newID = () => (crypto && crypto.randomUUID) ? crypto.randomUUID() : ('id-' + Date.now() + '-' + Math.random().toString(16).slice(2));
 
-    function attachFileToInput(file){
-      // DataTransfer を使って input.files を差し替える（対応ブラウザで）
-      try{
-        const dt = new DataTransfer();
-        dt.items.add(file);
-        postImage.files = dt.files;
-      }catch(e){
-        // 一部ブラウザで不可の場合があるため、プレビューだけは表示
-      }
-      renderPreview(file);
+function getYouTubeId(url){
+  try{
+    const u = new URL(url);
+    const host = (u.hostname || '').toLowerCase();
+
+    // youtu.be/VIDEO_ID
+    if(host.includes('youtu.be')){
+      const id = (u.pathname || '').replace('/','').trim();
+      return id || null;
     }
 
-    dropzone.addEventListener('click', ()=> postImage.click());
-    dropzone.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') postImage.click(); });
+    // youtube.com/watch?v=VIDEO_ID
+    if(host.includes('youtube.com') || host.includes('m.youtube.com')){
+      const v = u.searchParams.get('v');
+      if(v) return v;
 
-    postImage.addEventListener('change', ()=>{
-      const file = postImage.files && postImage.files[0];
-      renderPreview(file);
-    });
+      // youtube.com/shorts/VIDEO_ID
+      const m1 = (u.pathname || '').match(/\/shorts\/([a-zA-Z0-9_-]+)/);
+      if(m1) return m1[1];
 
-    // Drag & Drop
-    ['dragenter','dragover'].forEach(evt=>{
-      dropzone.addEventListener(evt, (e)=>{
-        e.preventDefault(); e.stopPropagation();
-        dropzone.style.borderColor = 'rgba(34,243,166,.55)';
-      });
-    });
-    ['dragleave','drop'].forEach(evt=>{
-      dropzone.addEventListener(evt, (e)=>{
-        e.preventDefault(); e.stopPropagation();
-        dropzone.style.borderColor = 'rgba(255,255,255,.22)';
-      });
-    });
-    dropzone.addEventListener('drop', (e)=>{
-      const file = e.dataTransfer?.files?.[0];
-      if(file && file.type.startsWith('image/')){
-        attachFileToInput(file);
-      }else{
-        showToast('画像ファイルをドロップしてください。', 'error');
-      }
-    });
+      // youtube.com/embed/VIDEO_ID
+      const m2 = (u.pathname || '').match(/\/embed\/([a-zA-Z0-9_-]+)/);
+      if(m2) return m2[1];
+    }
+  }catch(e){}
+  return null;
+}
 
-    async function uploadImageToStorage(file){
-      if(!file) return null;
+function normalizeYouTubeUrl(raw){
+  const id = getYouTubeId(raw);
+  if(!id) return null;
+  return `https://www.youtube.com/watch?v=${id}`;
+}
 
-      // サイズ制限（必要に応じて変更）
-      const maxSize = 5 * 1024 * 1024; // 5MB
-      if(file.size > maxSize){
-        throw new Error('画像サイズが大きすぎます（5MB以下推奨）。');
-      }
+function getYouTubeThumb(id){
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
 
-      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
-      const path = `blog/${newID()}.${ext}`;
+function renderPreview(file){
+  if(!file){
+    dzPreview.innerHTML = '<span class="hint">No Image</span>';
+    return;
+  }
+  const url = URL.createObjectURL(file);
+  dzPreview.innerHTML = `<img src="${url}" alt="preview">`;
+}
 
-      const { error } = await sb.storage.from(BUCKET).upload(path, file, {
-        cacheControl: '3600',
-        upsert: false,
-        contentType: file.type || 'image/jpeg'
-      });
-      if(error) throw error;
+function updatePreviewAuto(){
+  const file = postImage.files && postImage.files[0];
+  if(file){
+    renderPreview(file);
+    return;
+  }
 
-      const { data:pub } = sb.storage.from(BUCKET).getPublicUrl(path);
-      return pub?.publicUrl || null;
+  const raw = (postVideo.value || '').trim();
+  const id = raw ? getYouTubeId(raw) : null;
+
+  if(id){
+    dzPreview.innerHTML = `<img src="${getYouTubeThumb(id)}" alt="YouTube thumbnail">`;
+  }else{
+    dzPreview.innerHTML = '<span class="hint">No Image</span>';
+  }
+}
+
+function attachFileToInput(file){
+  try{
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    postImage.files = dt.files;
+  }catch(e){
+    // ブラウザによっては不可
+  }
+  updatePreviewAuto();
+}
+
+dropzone.addEventListener('click', ()=> postImage.click());
+dropzone.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') postImage.click(); });
+
+postImage.addEventListener('change', updatePreviewAuto);
+postVideo.addEventListener('input', ()=>{
+  // 画像が選ばれていない場合のみ、YouTubeサムネをプレビューに反映
+  const file = postImage.files && postImage.files[0];
+  if(!file) updatePreviewAuto();
+});
+
+// Drag & Drop
+['dragenter','dragover'].forEach(evt=>{
+  dropzone.addEventListener(evt, (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    dropzone.style.borderColor = 'rgba(34,243,166,.55)';
+  });
+});
+['dragleave','drop'].forEach(evt=>{
+  dropzone.addEventListener(evt, (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    dropzone.style.borderColor = 'rgba(255,255,255,.22)';
+  });
+});
+dropzone.addEventListener('drop', (e)=>{
+  const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if(file && file.type && file.type.startsWith('image/')){
+    attachFileToInput(file);
+  }else{
+    showToast('画像ファイルをドロップしてください。', 'error');
+  }
+});
+
+async function uploadImageToStorage(file){
+  if(!file) return null;
+
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if(file.size > maxSize){
+    throw new Error('画像サイズが大きすぎます（5MB以下推奨）。');
+  }
+
+  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+  const path = `blog/${newID()}.${ext}`;
+
+  const { error } = await sb.storage.from(BUCKET).upload(path, file, {
+    cacheControl: '3600',
+    upsert: false,
+    contentType: file.type || 'image/jpeg'
+  });
+  if(error) throw error;
+
+  const { data:pub } = sb.storage.from(BUCKET).getPublicUrl(path);
+  return pub && pub.publicUrl ? pub.publicUrl : null;
+}
+
+/**
+ * video_url カラムがある環境なら video_url に保存。
+ * もし存在しない環境でも壊れないように「一度 video_url を含めて insert → 失敗したら fallback」。
+ */
+async function insertPost({title, body, imageUrl, videoUrl}){
+  const payload = { title, body, image_url: imageUrl };
+  if(videoUrl) payload.video_url = videoUrl;
+
+  const res = await sb.from('blog_posts').insert(payload).select().single();
+
+  if(!res.error) return res.data;
+
+  const msg = String(res.error.message || '').toLowerCase();
+  const missingVideoCol = msg.includes('video_url') && (msg.includes('does not exist') || msg.includes('column'));
+
+  if(missingVideoCol){
+    // fallback: body に URL を残す（表示時にURL行は消す）
+    const body2 = videoUrl ? `${body}\n\nYouTube: ${videoUrl}` : body;
+    const res2 = await sb.from('blog_posts').insert({ title, body: body2, image_url: imageUrl }).select().single();
+    if(res2.error) throw res2.error;
+    return res2.data;
+  }
+
+  throw res.error;
+}
+
+function fmtDate(iso){
+  const dt = new Date(iso);
+  const y = dt.getFullYear();
+  const m = String(dt.getMonth()+1).padStart(2,'0');
+  const d = String(dt.getDate()).padStart(2,'0');
+  const hh = String(dt.getHours()).padStart(2,'0');
+  const mm = String(dt.getMinutes()).padStart(2,'0');
+  return `${y}/${m}/${d} ${hh}:${mm}`;
+}
+
+function extractVideoUrlFromPost(p){
+  if(p && p.video_url) return p.video_url;
+
+  const t = (p && p.body) ? String(p.body) : '';
+  const m = t.match(/https?:\/\/(?:www\.)?(?:youtube\.com\/\S+|youtu\.be\/\S+)/i);
+  return m ? m[0] : null;
+}
+
+function stripVideoUrlFromBody(body, videoUrl){
+  if(!body) return '';
+  let s = String(body);
+
+  if(videoUrl){
+    const esc = videoUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    s = s.replace(new RegExp(`\\s*(?:YouTube\\s*:\\s*)?${esc}\\s*`, 'g'), '');
+  }
+  // 念のため "YouTube:" 行を消す
+  s = s.replace(/\n?\s*(?:YouTube|Youtube|YOUTUBE)\s*:\s*https?:\/\/\S+\s*/g, '\n');
+  return s.trim();
+}
+
+function cardHTML(p){
+  const rawVideoUrl = extractVideoUrlFromPost(p);
+  const normalizedVideoUrl = rawVideoUrl ? normalizeYouTubeUrl(rawVideoUrl) : null;
+  const displayBody = stripVideoUrlFromBody(p.body || '', normalizedVideoUrl);
+
+  const img = p.image_url
+    ? `<img src="${escapeHTML(p.image_url)}" alt="${escapeHTML(p.title)}">`
+    : `<span class="hint" style="padding:10px">No Image</span>`;
+
+  const videoBtn = normalizedVideoUrl ? `
+    <a class="btn icon yt post-video"
+       href="${escapeHTML(normalizedVideoUrl)}"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="YouTube動画を見る">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="3" fill="currentColor" opacity=".95"></rect>
+        <polygon points="10,9 16,12 10,15" fill="#fff"></polygon>
+      </svg>
+      動画を見る
+    </a>
+  ` : '';
+
+  return `
+    <article class="post tilt" data-tilt>
+      <div class="post-actions">
+        <button class="post-del"
+                type="button"
+                data-action="delete"
+                data-id="${escapeHTML(p.id)}"
+                data-image="${escapeHTML(p.image_url || '')}"
+                aria-label="この投稿を削除">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16" stroke="rgba(234,255,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M10 11v7" stroke="rgba(234,255,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14 11v7" stroke="rgba(234,255,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M6.5 7l1 14h9l1-14" stroke="rgba(234,255,246,.95)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7" stroke="rgba(234,255,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="ph">${img}</div>
+      <div class="body">
+        <h5 class="title">${escapeHTML(p.title)}</h5>
+        <p class="text">${escapeHTML(displayBody)}</p>
+        ${videoBtn}
+        <div class="meta">投稿日時：${fmtDate(p.created_at)}</div>
+      </div>
+    </article>
+  `;
+}
+
+function renderSkeleton(count=6){
+  postList.innerHTML = '';
+  for(let i=0;i<count;i++){
+    const el = document.createElement('div');
+    el.className = 'post skeleton';
+    el.innerHTML = `
+      <div class="ph"></div>
+      <div class="body">
+        <div class="title">----</div>
+        <div class="text">----</div>
+        <div class="meta">----</div>
+      </div>
+    `;
+    postList.appendChild(el);
+  }
+}
+
+async function fetchPosts({append=false}={}){
+  postList.setAttribute('aria-busy','true');
+  if(!append) renderSkeleton(6);
+
+  const from = append ? loadedCount : 0;
+  const to   = from + PAGE_SIZE - 1;
+
+  const { data, error, count } = await sb
+    .from('blog_posts')
+    .select('*', { count:'exact' })
+    .order('created_at', { ascending:false })
+    .range(from, to);
+
+  if(error){
+    console.error(error);
+    postList.innerHTML = `<p class="hint">投稿の取得に失敗しました。SUPABASE_URL / ANON_KEY やポリシーをご確認ください。</p>`;
+    btnMore.hidden = true;
+    postList.setAttribute('aria-busy','false');
+    showToast('投稿の取得に失敗しました。', 'error');
+    return;
+  }
+
+  if(!append){
+    postList.innerHTML = '';
+    loadedCount = 0;
+  }
+
+  const frag = document.createDocumentFragment();
+  (data || []).forEach(p=>{
+    const wrap = document.createElement('div');
+    wrap.innerHTML = cardHTML(p);
+    frag.appendChild(wrap.firstElementChild);
+  });
+  postList.appendChild(frag);
+
+  // チルト再バインド（動的追加分）
+  postList.querySelectorAll('[data-tilt]').forEach(bindTilt);
+
+  loadedCount += (data || []).length;
+  btnMore.hidden = !(count && loadedCount < count);
+
+  postList.setAttribute('aria-busy','false');
+}
+
+// 削除（イベント委譲）
+postList.addEventListener('click', async (ev)=>{
+  const btn = ev.target.closest('button[data-action="delete"]');
+  if(!btn) return;
+
+  const id = btn.dataset.id;
+  if(!id) return;
+
+  const ok = confirm('この投稿を削除しますか？');
+  if(!ok) return;
+
+  btn.disabled = true;
+
+  try{
+    const { error } = await sb.from('blog_posts').delete().eq('id', id);
+    if(error) throw error;
+
+    // 画像がSupabase Storageのpublic URLなら削除を試みる（失敗しても投稿削除は成功扱い）
+    const imgUrl = btn.dataset.image || '';
+    const path = storagePathFromPublicUrl(imgUrl);
+    if(path){
+      await sb.storage.from(BUCKET).remove([path]);
     }
 
-    async function insertPost({title, body, imageUrl}){
-      const { data, error } = await sb
-        .from('blog_posts')
-        .insert({ title, body, image_url: imageUrl })
-        .select()
-        .single();
-      if(error) throw error;
-      return data;
+    showToast('削除しました。', 'ok');
+    await fetchPosts({append:false});
+  }catch(err){
+    console.error(err);
+    showToast('削除に失敗しました（権限/ポリシーをご確認ください）。', 'error');
+  }finally{
+    btn.disabled = false;
+  }
+});
+
+function storagePathFromPublicUrl(url){
+  if(!url) return null;
+  try{
+    const u = new URL(url);
+    const marker = `/storage/v1/object/public/${BUCKET}/`;
+    const idx = u.pathname.indexOf(marker);
+    if(idx === -1) return null;
+    return u.pathname.slice(idx + marker.length).replace(/^\/+/, '');
+  }catch(e){
+    return null;
+  }
+}
+
+postForm.addEventListener('submit', async (ev)=>{
+  ev.preventDefault();
+
+  const title = (postForm.title.value || '').trim();
+  const body  = (postForm.text.value  || '').trim();
+  const rawVideo = (postForm.video.value || '').trim();
+
+  if(!title || !body){
+    showToast('タイトルと本文は必須です。', 'error');
+    return;
+  }
+
+  let videoUrl = null;
+  let videoId = null;
+  if(rawVideo){
+    videoId = getYouTubeId(rawVideo);
+    if(!videoId){
+      showToast('YouTubeのURLを入力してください（youtube.com / youtu.be）。', 'error');
+      return;
+    }
+    videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  }
+
+  const file = postImage.files && postImage.files[0];
+
+  try{
+    showToast('投稿中…', 'ok');
+
+    // 画像URL：画像があればStorageへ、無ければYouTubeサムネを採用（動画URLがある場合）
+    let imageUrl = null;
+    if(file){
+      imageUrl = await uploadImageToStorage(file);
+    }else if(videoId){
+      imageUrl = getYouTubeThumb(videoId);
+    }else{
+      imageUrl = null;
     }
 
-    function fmtDate(iso){
-      const dt = new Date(iso);
-      const y = dt.getFullYear();
-      const m = String(dt.getMonth()+1).padStart(2,'0');
-      const d = String(dt.getDate()).padStart(2,'0');
-      const hh = String(dt.getHours()).padStart(2,'0');
-      const mm = String(dt.getMinutes()).padStart(2,'0');
-      return `${y}/${m}/${d} ${hh}:${mm}`;
-    }
+    await insertPost({ title, body, imageUrl, videoUrl });
 
-    function cardHTML(p){
-      const img = p.image_url
-        ? `<img src="${p.image_url}" alt="${escapeHTML(p.title)}">`
-        : `<span class="hint" style="padding:10px">No Image</span>`;
+    postForm.reset();
+    dzPreview.innerHTML = '<span class="hint">No Image</span>';
 
-      return `
-        <article class="post tilt" data-tilt>
-          <div class="ph">${img}</div>
-          <div class="body">
-            <h5 class="title">${escapeHTML(p.title)}</h5>
-            <p class="text">${escapeHTML(p.body || '')}</p>
-            <div class="meta">投稿日時：${fmtDate(p.created_at)}</div>
-          </div>
-        </article>
-      `;
-    }
+    showToast('投稿しました！', 'ok');
+    await fetchPosts({append:false});
+  }catch(err){
+    console.error(err);
+    showToast('投稿に失敗しました（Storage権限/通信/設定を確認）。', 'error');
+  }
+});
 
-    function renderSkeleton(count=6){
-      postList.innerHTML = '';
-      for(let i=0;i<count;i++){
-        const el = document.createElement('div');
-        el.className = 'post skeleton';
-        el.innerHTML = `
-          <div class="ph"></div>
-          <div class="body">
-            <div class="title">----</div>
-            <div class="text">----</div>
-            <div class="meta">----</div>
-          </div>
-        `;
-        postList.appendChild(el);
-      }
-    }
+btnMore.addEventListener('click', ()=>fetchPosts({append:true}));
+btnReload.addEventListener('click', ()=>fetchPosts({append:false}));
 
-    async function fetchPosts({append=false}={}){
-      postList.setAttribute('aria-busy','true');
-      if(!append) renderSkeleton(6);
-
-      const from = append ? loadedCount : 0;
-      const to   = from + PAGE_SIZE - 1;
-
-      const { data, error, count } = await sb
-        .from('blog_posts')
-        .select('*', { count:'exact' })
-        .order('created_at', { ascending:false })
-        .range(from, to);
-
-      if(error){
-        console.error(error);
-        postList.innerHTML = `<p class="hint">投稿の取得に失敗しました。SUPABASE_URL / ANON_KEY やポリシーをご確認ください。</p>`;
-        btnMore.hidden = true;
-        postList.setAttribute('aria-busy','false');
-        showToast('投稿の取得に失敗しました。', 'error');
-        return;
-      }
-
-      if(!append){
-        postList.innerHTML = '';
-        loadedCount = 0;
-      }
-
-      const frag = document.createDocumentFragment();
-      (data || []).forEach(p=>{
-        const wrap = document.createElement('div');
-        wrap.innerHTML = cardHTML(p);
-        frag.appendChild(wrap.firstElementChild);
-      });
-      postList.appendChild(frag);
-
-      // チルト再バインド（動的に追加された投稿）
-      postList.querySelectorAll('[data-tilt]').forEach(bindTilt);
-
-      loadedCount += (data || []).length;
-      btnMore.hidden = !(count && loadedCount < count);
-
-      postList.setAttribute('aria-busy','false');
-    }
-
-    postForm.addEventListener('submit', async (ev)=>{
-      ev.preventDefault();
-      const title = (postForm.title.value || '').trim();
-      const body  = (postForm.text.value  || '').trim();
-      const file  = postImage.files && postImage.files[0];
-
-      if(!title || !body){
-        showToast('タイトルと本文は必須です。', 'error');
-        return;
-      }
-
-      try{
-        showToast('投稿中…', 'ok');
-        const imageUrl = await uploadImageToStorage(file);
-        await insertPost({ title, body, imageUrl });
-
-        postForm.reset();
-        dzPreview.innerHTML = '<span class="hint">No Image</span>';
-
-        showToast('投稿しました！', 'ok');
-        await fetchPosts({append:false});
-      }catch(err){
-        console.error(err);
-        showToast('投稿に失敗しました（Storage権限/通信/設定を確認）。', 'error');
-      }
-    });
-
-    btnMore.addEventListener('click', ()=>fetchPosts({append:true}));
-    btnReload.addEventListener('click', ()=>fetchPosts({append:false}));
-
-    // 初期ロード
-    fetchPosts({append:false});
+// 初期ロード
+fetchPosts({append:false});
 
   </script>
 </body>
